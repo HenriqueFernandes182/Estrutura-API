@@ -1,21 +1,17 @@
 import { Router } from 'express';
+import cors from 'cors';
+
+import UserController from './app/controllers/UserController';
 
 const routes = Router();
+routes.use(cors());
 
 routes.get('/', (req, res) => res.json({ result: 'Test-API' }));
 
-routes.get('/users', (req, res) =>
-  res, json({
-    users: [
-      {
-        name: 'cristian',
-        age: 21,
-      },
-      {
-        name: 'Henrique',
-        age: 33,
-      }
-    ]
-  }),
+routes.post('/users', UserController.store);
+routes.get('/users', UserController.index);
+routes.get('/users/:uid', UserController.show);
+routes.put('/users/:uid', UserController.update);
+routes.delete('/users/:uid', UserController.delete);
 
 export default routes;
